@@ -1,0 +1,69 @@
+<style type="text/css">
+body {
+	text-align: center;
+	color: #333;
+}
+#resultContainer {
+	width: 200px;
+	height: 200px;
+	text-align: center;
+	color: white;
+	font-family: sans-serif;
+	font-size: 24px;
+	margin: 20px auto;
+}
+#resultContainer p {
+	position: relative;
+	top: 80px;
+}
+/*.visible {
+	display: block;
+}
+.hidden {
+	display: none;
+}*/
+.red {
+	background-color: red;
+}
+.green {
+	background-color: green;
+}
+/*.restartForm {
+	position: relative;
+	top: 70px;
+}*/
+#answer{
+	color: white;
+}
+</style>
+<body>
+  <h5>Highlight for answer: <span id="answer"><%= session[:number] %></span></h5>
+  <h1>Welcome to the Great Number Game!</h1>
+  <p>I am thinking of a number between 1 and 100</p>
+  <p>Take a guess!</p>
+  
+  <div>
+    <form action="/submission" method="post">
+	  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+	  <input name="guess" type="text">
+	  <input type="submit" value="Submit">
+	</form>
+  </div>
+
+  <% if flash[:notice] %>
+    <div id ="resultContainer" class="red">
+      <p><%= flash[:notice] %></p>
+    </div>	
+  <% end %>
+
+  <% if flash[:success] %>
+    <div id ="resultContainer" class="green">
+      <p><%= flash[:success] %></p>
+    </div>
+    <form action="/reset" method="post">
+	  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+      <input type="submit" value="Play Again">
+    </form>
+  <% end %>
+
+</body>
